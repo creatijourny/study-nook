@@ -4,7 +4,7 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <nav className='flex justify-between items-center p-5 bg-white'>
+        <nav className='flex justify-between items-center py-3 px-4 bg-white'>
             <div>
                 <Image 
                 src={"/assets/study_logo.png"}
@@ -12,20 +12,26 @@ const Navbar = () => {
                 width={150}
                 alt='Image'/>
             </div>
-            <ul>
-                <li className='flex gap-4'>
+            <div>
+                <ul>
+                <li className='flex gap-2 md:gap-4'>
                     <Link href={'/'}>Home</Link>
-                    <Link href={'/all-rooms'}>All Rooms</Link>
-                    <Link href={'/my-bookings'}>My Bookings</Link>
+                    <Link href={'/all-rooms'}>Rooms</Link>
                     <Link href={'/add-room'}>Add Room</Link>
+                    <Link href={'/my-listings'}>My Listings</Link>
+                    <Link href={'/my-bookings'}>My Bookings</Link>
+                    
                     <Link href={'/profile'}>Profile</Link>
                 </li>
             </ul>
+            </div>
             
-            <ul className='flex gap-2'>                
+            <div>
+                <ul className='flex gap-2'>                
                 <li><Link href={'/login'}>Login</Link></li>
                 <li><Link href={'/sign-up'}>Sign up</Link></li>
             </ul>
+            </div>
         </nav>
     );
 };
