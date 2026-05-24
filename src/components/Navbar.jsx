@@ -4,19 +4,19 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <nav className='flex justify-between items-center py-3 px-4 bg-white'>
+        <nav className='flex justify-between items-center px-4 bg-white'>
             <div>
                 <Image 
                 src={"/assets/study_logo.png"}
-                height= {150}
-                width={150}
+                height= {130}
+                width={130}
                 alt='Image'/>
             </div>
             <div>
                 <ul>
                 <li className='flex gap-2 md:gap-4'>
                     <Link href={'/'}>Home</Link>
-                    <Link href={'/all-rooms'}>Rooms</Link>
+                    <Link href={'/rooms'}>Rooms</Link>
                     <Link href={'/add-room'}>Add Room</Link>
                     <Link href={'/my-listings'}>My Listings</Link>
                     <Link href={'/my-bookings'}>My Bookings</Link>

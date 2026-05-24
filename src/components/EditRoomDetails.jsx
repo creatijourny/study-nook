@@ -1,57 +1,41 @@
-'use client'
-import Amenities from '@/components/Amenities';
-import { Button, Card, FieldError, Input, Label, ListBox, TextArea, Select, TextField, Checkbox } from '@heroui/react';
+"use client";
 
-import React, { useState } from 'react';
+import {Envelope} from "@gravity-ui/icons";
+import {Button, FieldError, Input, Label, Modal, Surface, TextArea, TextField} from "@heroui/react";
+import Amenities from "./Amenities";
 
-const amenitiesList = [
-    "Whiteboard",
-    "Projector",
-    "Wi-Fi",
-    "Power Outlets",
-    "Quiet Zone",
-    "Air Conditioning",
-];
+export function EditRoomDetails({selectedAmenities, handleAmenityChange}) {
 
-
-const AddRoom = () => {
-    
-    const onSubmit = async (e) => {
+       const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const room = Object.fromEntries(formData.entries())
         room.amenities = selectedAmenities;
         console.log(room);
 
-       const res = await fetch('http://localhost:5000/room', {
-            method: 'POST',
-            headers:{
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(room)
-        })
-        const data = await res.json()
-        console.log(data);
+    //    const res = await fetch('http://localhost:5000/room', {
+    //         method: 'POST',
+    //         headers:{
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(room)
+    //     })
+    //     const data = await res.json()
+        
     };
+  return (
+    <Modal>
+      <Button variant="outline">Edit</Button>
+      <Modal.Backdrop>
+        <Modal.Container placement="auto">
+          <Modal.Dialog className="sm:max-w-md">
+            <Modal.CloseTrigger />
+            <Modal.Header>
+              <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
+                <Envelope className="size-5" />
+              </Modal.Icon>
+              <Modal.Heading>Contact Us</Modal.Heading>
 
-    const [selectedAmenities, setSelectedAmenities] = useState([]);
-    const handleAmenityChange = (value, checked) => {
-        if (checked) {
-            setSelectedAmenities((prev) => [...prev, value]);
-        } else {
-            setSelectedAmenities((prev) =>
-                prev.filter((item) => item !== value)
-            );
-        }
-
-    };
-
-    
-
-    return (
-        <div className='max-w-7xl mx-auto p-5'>
-            <Card>
-                <h2 className='text-2xl font-bold text-center'>Add Room</h2>
                 <form onSubmit={onSubmit} className="p-10 space-y-5 w-3xl">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Image URL - Removed preview */}
@@ -123,36 +107,22 @@ const AddRoom = () => {
                     </Button>
 
                 </form>
-
-            </Card>
-        </div>
-    );
-};
-
-export default AddRoom;
-
-  {/* <div className="grid grid-cols-2 gap-4">
-
-                        {amenitiesList.map((item) => (
-
-                            <Checkbox
-                                key={item}
-                                isSelected={selectedAmenities.includes(item)}
-                                onValueChange={(checked) =>
-                                    handleAmenityChange(item, checked)}
-                            >
-                                <Checkbox.Control className="size-4 border border-gray-400 rounded-full before:rounded-full
-                                data-[selected=true]:bg-cyan-500
-                                data-[selected=true]:border-cyan-500
-                                text-white">
-                                    <Checkbox.Indicator />
-                                </Checkbox.Control>
-                                <Checkbox.Content>
-                                    {item}
-                                </Checkbox.Content>
-
-
-                            </Checkbox>
-
-                        ))}
-                    </div> */}
+              
+            </Modal.Header>
+            <Modal.Body className="p-6">
+              <Surface variant="default">
+              
+              </Surface>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button slot="close" variant="secondary">
+                Cancel
+              </Button>
+              <Button slot="close">Send Message</Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
+    </Modal>
+  );
+}
