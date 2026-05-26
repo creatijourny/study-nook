@@ -1,13 +1,15 @@
 "use client";
 
-import { Envelope } from "@gravity-ui/icons";
+
 import { Button, FieldError, Input, Label, Modal, Surface, TextArea, TextField } from "@heroui/react";
 import Amenities from "./Amenities";
 import { useState } from "react";
 
 
 
-export function EditModal() {
+export function EditModal({ room }) {
+    const { imageUrl, roomName, description, floor, seat, amenities, price } = room;
+
     const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
@@ -15,19 +17,19 @@ export function EditModal() {
         room.amenities = selectedAmenities;
         console.log(room);
 
-        };
+    };
 
-        const [selectedAmenities, setSelectedAmenities] = useState([]);
-        
+    const [selectedAmenities, setSelectedAmenities] = useState([]);
 
-const handleAmenityChange = (amenity, checked) => {
-  if (checked) {
-    setSelectedAmenities((prev) => [...prev, amenity]);
-  } else {
-    setSelectedAmenities((prev) =>
-      prev.filter((item) => item !== amenity)
-    );
-  }
+
+    const handleAmenityChange = (amenity, checked) => {
+        if (checked) {
+            setSelectedAmenities((prev) => [...prev, amenity]);
+        } else {
+            setSelectedAmenities((prev) =>
+                prev.filter((item) => item !== amenity)
+            );
+        }
 
         //    const res = await fetch('http://localhost:5000/room', {
         //         method: 'POST',
@@ -47,22 +49,20 @@ const handleAmenityChange = (amenity, checked) => {
             </div>
             <Modal.Backdrop>
                 <Modal.Container placement="auto">
-                    <Modal.Dialog className="sm:max-w-md">
+                    <Modal.Dialog className="sm:max-w-2xl overflow-x-hidden">
                         <Modal.CloseTrigger />
                         <Modal.Header>
-                            <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                                <Envelope className="size-5" />
-                            </Modal.Icon>
-                            <Modal.Heading>Contact Us</Modal.Heading>
+
+                            <Modal.Heading className="text-center mt-6 py-2 text-xl font-bold">Edit Study Room</Modal.Heading>
 
                         </Modal.Header>
-                        <Modal.Body className="p-6">
+                        <Modal.Body className="p-4">
                             <Surface variant="default">
-                                <form onSubmit={onSubmit} className="p-10 space-y-5 w-3xl">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <form onSubmit={onSubmit} className="p-2 space-y-5 w-full">
+                                    <div className="space-y-3">
                                         {/* Image URL - Removed preview */}
-                                        <div className="md:col-span-2">
-                                            <TextField name="imageUrl" isRequired>
+                                        <div>
+                                            <TextField name="imageUrl" defaultValue={imageUrl} isRequired>
                                                 <Label>Image URL</Label>
                                                 <Input
                                                     type="url"
@@ -72,15 +72,15 @@ const handleAmenityChange = (amenity, checked) => {
                                                 <FieldError />
                                             </TextField>
                                         </div>
-                                        <div className="md:col-span-2">
-                                            <TextField name="roomName" isRequired>
+                                        <div>
+                                            <TextField name="roomName" defaultValue={roomName} isRequired>
                                                 <Label>Room Name</Label>
-                                                <Input placeholder="Bali Paradise" className="rounded-2xl" />
+                                                <Input placeholder="Enter room name" className="rounded-2xl" />
                                                 <FieldError />
                                             </TextField>
                                         </div>
-                                        <div className="md:col-span-2">
-                                            <TextField name="description" isRequired>
+                                        <div>
+                                            <TextField name="description" defaultValue={description} isRequired>
                                                 <Label>Description</Label>
                                                 <TextArea
                                                     placeholder="Describe the travel experience..."
@@ -90,13 +90,13 @@ const handleAmenityChange = (amenity, checked) => {
                                             </TextField>
                                         </div>
 
-                                        {/* Country */}
-                                        <TextField name="floor" isRequired>
+
+                                        <TextField name="floor" defaultValue={floor} isRequired>
                                             <Label>Floor</Label>
                                             <Input placeholder="2nd Floor" className="rounded-2xl" />
                                             <FieldError />
                                         </TextField>
-                                        <TextField name="seat" type="number" isRequired>
+                                        <TextField name="seat" type="number" defaultValue={seat} isRequired>
                                             <Label>Seat capacity</Label>
                                             <Input
                                                 type="number"
@@ -105,7 +105,9 @@ const handleAmenityChange = (amenity, checked) => {
                                             />
                                             <FieldError />
                                         </TextField>
-                                        <TextField name="price" type="number" isRequired>
+
+
+                                        <TextField name="price" type="number" defaultValue={price} isRequired>
                                             <Label>Hourly rate (USD)</Label>
                                             <Input
                                                 type="number"
@@ -114,30 +116,29 @@ const handleAmenityChange = (amenity, checked) => {
                                             />
                                             <FieldError />
                                         </TextField>
+
                                     </div>
                                     {/* Amenities - Select Component */}
-                                    <Amenities
+                                    <Amenities defaultValue={amenities}
                                         selectedAmenities={selectedAmenities}
                                         handleAmenityChange={handleAmenityChange}
-                                        
+
                                     />
 
-                                    <Button
-                                        type="submit"
-                                        variant="outline"
-                                        className=" rounded-none w-3/4 bg-cyan-500 text-white">
-                                        Submit
-                                    </Button>
+                                    <Modal.Footer className="flex justify-end pt-4">
+
+                                        <Button
+                                            type="submit"
+                                            className="bg-green-600 hover:bg-green-700 text-black px-6 py-2 rounded-full font-medium"
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </Modal.Footer>
 
                                 </form>
                             </Surface>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button slot="close" variant="secondary">
-                                Cancel
-                            </Button>
-                            <Button slot="close">Send Message</Button>
-                        </Modal.Footer>
+
                     </Modal.Dialog>
                 </Modal.Container>
             </Modal.Backdrop>

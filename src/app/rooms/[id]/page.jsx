@@ -9,14 +9,21 @@ const RoomDetailsPage = async ({ params }) => {
     const { id } = await params;
 
     const res = await fetch(`http://localhost:5000/room/${id}`)
+
+    if (!res.ok) {
+  const errorText = await res.text();
+  console.log(errorText);
+
+  throw new Error("API request failed");
+}
+
     const room = await res.json();
 
     const { imageUrl, roomName, description, floor, seat, amenities, price } = room;
     // const selectedAmenities = amenities.map(item => item.toString());
 
     return (
-        <div className='flex flex-col md:flex-row items-center gap-5 shadow-sm max-w-7xl mx-auto'>
-           
+        <div className='flex flex-col md:flex-row items-center gap-5 shadow-sm max-w-7xl mx-auto'>          
             
            
             <div className="p-4">
@@ -43,7 +50,7 @@ const RoomDetailsPage = async ({ params }) => {
                 <div className='flex justify-start items-center gap-2'>
                     <Button variant="secondary" className="mt-2  bg-cyan-500 text-white rounded-none">Book Now</Button>
 
-                   <EditModal />
+                   <EditModal room={room}/>
                     
                 </div>
             </div>
