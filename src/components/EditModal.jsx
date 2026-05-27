@@ -8,7 +8,7 @@ import { useState } from "react";
 
 
 export function EditModal({ room }) {
-    const { imageUrl, roomName, description, floor, seat, amenities, price } = room;
+    const { _id, imageUrl, roomName, description, floor, seat, amenities, price } = room;
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -17,10 +17,19 @@ export function EditModal({ room }) {
         room.amenities = selectedAmenities;
         console.log(room);
 
+        const res = await fetch(`http://localhost:5000/room/${_id}`, {
+                method: 'PATCH',
+                headers:{
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(room)
+            })
+            const data = await res.json()
+            console.log(data);
+
     };
 
     const [selectedAmenities, setSelectedAmenities] = useState([]);
-
 
     const handleAmenityChange = (amenity, checked) => {
         if (checked) {
@@ -31,15 +40,7 @@ export function EditModal({ room }) {
             );
         }
 
-        //    const res = await fetch('http://localhost:5000/room', {
-        //         method: 'POST',
-        //         headers:{
-        //             'content-type': 'application/json'
-        //         },
-        //         body: JSON.stringify(room)
-        //     })
-        //     const data = await res.json()
-        //     console.log(data);
+           
     };
 
     return (

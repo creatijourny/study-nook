@@ -1,3 +1,4 @@
+import { DeleteRoom } from '@/components/DeleteRoom';
 import { EditModal } from '@/components/EditModal';
 
 import { Button } from '@heroui/react';
@@ -51,6 +52,7 @@ const RoomDetailsPage = async ({ params }) => {
                     <Button variant="secondary" className="mt-2  bg-cyan-500 text-white rounded-none">Book Now</Button>
 
                    <EditModal room={room}/>
+                   <DeleteRoom room={room}/>
                     
                 </div>
             </div>
