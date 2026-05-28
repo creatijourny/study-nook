@@ -1,10 +1,12 @@
 "use client";
-import { Card, toast } from '@heroui/react';
+import { Card } from '@heroui/react';
 import React from 'react';
 import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { authClient } from '@/lib/auth-client';
 import { redirect } from 'next/navigation';
+import { toast } from 'react-toastify';
+
 
 
 const SignUpPage = () => {
@@ -15,17 +17,23 @@ const SignUpPage = () => {
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
 
-        const {data, error} = await authClient.signUp.email({
+        const { data, error } = await authClient.signUp.email({
             email: user.email,
             password: user.password,
             name: user.name,
             image: user.image
         })
-        if(data){
+        if (!error) {
+            toast.success("Successfully registered!")
             redirect('/');
+            
         }
-        if(error){
-            // toast
+
+        if (error) {
+            toast.error("Email or password is incorrect", {
+                position: "top-right",
+                autoClose: 3000,
+            });
         };
     }
     return (
@@ -40,7 +48,7 @@ const SignUpPage = () => {
                         isRequired
                         name="name"
                         type="text"
-                        
+
                     >
                         <Label>Name</Label>
                         <Input placeholder="Enter your name" />
@@ -49,7 +57,7 @@ const SignUpPage = () => {
                     <TextField
                         name="image"
                         type="url"
-                        
+
                     >
                         <Label>Image URL</Label>
                         <Input placeholder="Image url" />
@@ -98,12 +106,14 @@ const SignUpPage = () => {
 
                             Create account
                         </Button>
+                        
 
                     </div>
                 </Form>
 
 
             </Card>
+            
         </div>
     );
 };
