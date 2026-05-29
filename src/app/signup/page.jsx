@@ -1,7 +1,7 @@
 "use client";
-import { Card } from '@heroui/react';
+import { FcGoogle } from "react-icons/fc";
+import { Card, Separator } from '@heroui/react';
 import React from 'react';
-import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { authClient } from '@/lib/auth-client';
 import { redirect } from 'next/navigation';
@@ -35,6 +35,11 @@ const SignUpPage = () => {
                 autoClose: 3000,
             });
         };
+    }
+    const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google"
+        })
     }
     return (
         <div className='max-w-7xl mx-auto'>
@@ -110,6 +115,14 @@ const SignUpPage = () => {
 
                     </div>
                 </Form>
+                <div className='flex justify-center items-center gap-3'>
+                    <Separator />
+                    <div className='whitespace-nowrap'>Or</div>
+                    <Separator />                    
+                </div>
+                <div>
+                    <Button onClick={handleGoogleSignIn} variant="outline" className={"w-full rounded-none"}><FcGoogle /> Sign in with Google</Button>
+                </div>
 
 
             </Card>

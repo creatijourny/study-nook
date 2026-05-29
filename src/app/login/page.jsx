@@ -1,11 +1,12 @@
 "use client";
-import { Card } from '@heroui/react';
+import { Card, Separator } from '@heroui/react';
 import React from 'react';
 import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { authClient } from '@/lib/auth-client';
 import { redirect } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { FcGoogle } from 'react-icons/fc';
 
 
 
@@ -19,14 +20,14 @@ const LoginPage = () => {
 
         const { data, error } = await authClient.signIn.email({
             email: user.email,
-            password: user.password,            
+            password: user.password,
         });
-        console.log({data, error});
+        console.log({ data, error });
 
         if (!error) {
             // toast.success("Successfully registered!")
             redirect('/');
-            
+
         }
 
         // if (error) {
@@ -36,6 +37,13 @@ const LoginPage = () => {
         //     });
         // };
     }
+
+    const handleGoogleSignIn = async () => {
+            await authClient.signIn.social({
+                provider: "google"
+            })
+        }
+
     return (
         <div className='max-w-7xl mx-auto'>
             <div className='text-center mb-4'>
@@ -44,7 +52,7 @@ const LoginPage = () => {
             </div>
             <Card className='border rounded-md'>
                 <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4 space-y-3 p-3">
-                  
+
                     <TextField
                         isRequired
                         name="email"
@@ -88,14 +96,21 @@ const LoginPage = () => {
 
                             Login
                         </Button>
-                        
+
 
                     </div>
                 </Form>
-
+                <div className='flex justify-center items-center gap-3'>
+                    <Separator />
+                    <div className='whitespace-nowrap'>Or</div>
+                    <Separator />
+                </div>
+                <div>
+                    <Button onClick={handleGoogleSignIn} variant="outline" className={"w-full rounded-none"}><FcGoogle /> Sign in with Google</Button>
+                </div>
 
             </Card>
-            
+
         </div>
     );
 };
