@@ -1,6 +1,8 @@
+
 import BookingModal from '@/components/BookingModal';
 import { DeleteRoom } from '@/components/DeleteRoom';
 import { EditModal } from '@/components/EditModal';
+import { authClient } from '@/lib/auth-client';
 
 import { Button } from '@heroui/react';
 import Image from 'next/image';
@@ -8,6 +10,11 @@ import Image from 'next/image';
 
 
 const RoomDetailsPage = async ({ params }) => {
+
+    // const { data: session } = authClient.useSession()    
+    //     const user = session?.user
+        // console.log(user);
+
     const { id } = await params;
 
     const res = await fetch(`http://localhost:5000/room/${id}`)
@@ -53,6 +60,7 @@ const RoomDetailsPage = async ({ params }) => {
                     roomName={room.roomName}
                     imageUrl={room.imageUrl} 
                     hourlyRate={room.price}/>
+                    
                    <EditModal room={room}/>
                    <DeleteRoom room={room}/>
                     

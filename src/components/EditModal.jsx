@@ -4,10 +4,15 @@
 import { Button, FieldError, Input, Label, Modal, Surface, TextArea, TextField } from "@heroui/react";
 import Amenities from "./Amenities";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 
 
 export function EditModal({ room }) {
+
+    const { data: session } = authClient.useSession()    
+        const user = session?.user
+
     const { _id, imageUrl, roomName, description, floor, seat, amenities, price } = room;
 
     const onSubmit = async (e) => {
@@ -46,7 +51,7 @@ export function EditModal({ room }) {
     return (
         <Modal>
             <div>
-                <Button variant='outline' className={'rounded-none p-2'}>Edit</Button>
+                {user ? <Button variant='outline' className={'rounded-none px-3 py-2 bg-blue-500 text-white'}>Edit</Button> : ""}
             </div>
             <Modal.Backdrop>
                 <Modal.Container placement="auto">

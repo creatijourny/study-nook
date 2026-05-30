@@ -1,11 +1,16 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {AlertDialog, Button} from "@heroui/react";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
 
 
 export function DeleteRoom({room}) {
+
+  const { data: session } = authClient.useSession()    
+          const user = session?.user
+
     const {_id, room: roomName} = room;
     const router = useRouter();
 
@@ -26,7 +31,7 @@ router.refresh();
 
   return (
     <AlertDialog>
-      <Button className={'rounded-none'} variant="danger">Delete</Button>
+      {user ? <Button className={'rounded-none'} variant="danger">Delete</Button> : ""}
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-[400px]">
