@@ -49,7 +49,10 @@ const RoomDetailsPage = async ({ params }) => {
                 </div>
                 <div className='flex justify-start items-center gap-2'>
                     {/* <Button variant="secondary" className="mt-2  bg-cyan-500 text-white rounded-none">Book Now</Button> */}
-                    <BookingModal roomName={room.roomName} hourlyRate={room.price}/>
+                    <BookingModal 
+                    roomName={room.roomName}
+                    imageUrl={room.imageUrl} 
+                    hourlyRate={room.price}/>
                    <EditModal room={room}/>
                    <DeleteRoom room={room}/>
                     

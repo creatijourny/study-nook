@@ -9,7 +9,7 @@ import {
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
-export default function BookingModal({ roomName, hourlyRate }) {
+export default function BookingModal({ roomName, imageUrl, hourlyRate }) {
     const {data: session} = authClient.useSession();
     const user = session?.user;
     
@@ -38,14 +38,20 @@ export default function BookingModal({ roomName, hourlyRate }) {
 
   const today = new Date().toISOString().split("T")[0];
 
+//   const { imageUrl, roomName, description, floor, seat, amenities, price } = room;
+
   const handleBooking = async () => {
     
-    const bookingData = {    
+    const bookingData = {
+        userId: user?.id,
+        roomName,
+        imageUrl,                 
       date,
       startTime,
       endTime,
       duration,
-      totalCost
+      totalCost,
+      status: "confirmed"
       
     };
     // console.log(bookingData);

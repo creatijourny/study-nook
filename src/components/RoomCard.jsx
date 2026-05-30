@@ -14,7 +14,7 @@ const RoomCard = ({ room }) => {
                 width={350}
                 className="w-full h-56 object-cover"
             />
-            <h2 className="text-xl font-bold">Name: {roomName}</h2>
+            <h2 className="text-xl font-bold">{roomName}</h2>
             <p>Description: {description?.length > 100
                 ? description.slice(0, 100) + "..."
                 : description}</p>
