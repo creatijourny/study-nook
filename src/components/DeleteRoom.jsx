@@ -26,7 +26,7 @@ router.refresh();
 
   return (
     <AlertDialog>
-      <Button variant="danger">Delete</Button>
+      <Button className={'rounded-none'} variant="danger">Delete</Button>
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-[400px]">

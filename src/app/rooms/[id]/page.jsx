@@ -1,3 +1,4 @@
+import BookingModal from '@/components/BookingModal';
 import { DeleteRoom } from '@/components/DeleteRoom';
 import { EditModal } from '@/components/EditModal';
 
@@ -24,9 +25,7 @@ const RoomDetailsPage = async ({ params }) => {
     // const selectedAmenities = amenities.map(item => item.toString());
 
     return (
-        <div className='flex flex-col md:flex-row items-center gap-5 shadow-sm max-w-7xl mx-auto'>          
-            
-           
+        <div className='flex flex-col items-center gap-5 shadow-sm max-w-7xl mx-auto'>  
             <div className="p-4">
                 <Image
                     alt={roomName}
@@ -36,7 +35,7 @@ const RoomDetailsPage = async ({ params }) => {
                     className="w-full object-cover"
                 />
             </div>
-            <div className='w-[70vh] p-5 space-y-3'>
+            <div className='w-[70vh] p-2 space-y-3'>
                 <h2 className="text-xl font-bold">Name: {roomName}</h2>
                 <p className='line-clamp-2'>Description: {description}</p>
 
@@ -49,8 +48,8 @@ const RoomDetailsPage = async ({ params }) => {
                     <span className="text-green-500">+2 more</span>
                 </div>
                 <div className='flex justify-start items-center gap-2'>
-                    <Button variant="secondary" className="mt-2  bg-cyan-500 text-white rounded-none">Book Now</Button>
-
+                    {/* <Button variant="secondary" className="mt-2  bg-cyan-500 text-white rounded-none">Book Now</Button> */}
+                    <BookingModal roomName={room.roomName} hourlyRate={room.price}/>
                    <EditModal room={room}/>
                    <DeleteRoom room={room}/>
                     
